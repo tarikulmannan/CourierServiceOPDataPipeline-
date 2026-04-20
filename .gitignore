@@ -4,3 +4,9 @@ venv/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Google Cloud Credentials
+credentials.json
+
+# DB Credentials
+.env
