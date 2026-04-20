@@ -29,7 +29,7 @@ DB_NAME=courier_db
 
 ### 3. How to Run the Pipeline
 
-1. Place your `.xlsx` files into the `/Scripts` folder.
+1. Place your `.xlsx` files into the `/gdrive` folder.
 
 2. Open your terminal in the project root and run:
 
