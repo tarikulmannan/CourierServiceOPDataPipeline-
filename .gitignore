@@ -7,3 +7,6 @@ __pycache__/
 
 # Google Cloud Credentials
 credentials.json
+
+# DB Credentials
+.env
