@@ -21,8 +21,8 @@ DB_HOST=db
 DB_USER=project_admin
 DB_PASSWORD=YourSecurePassword123
 DB_NAME=courier_db
+```
 
-#
 **Note:** If you use special characters (like `@`) in your password, the Python script is configured to handle the encoding automatically using `urllib.parse`.
 
 ---
