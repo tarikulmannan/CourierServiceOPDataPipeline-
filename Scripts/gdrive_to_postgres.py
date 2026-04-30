@@ -56,9 +56,31 @@ def process_files():
         # 5. Load to Postgres
         # We use the filename (minus .xlsx) as the table name, or one master table
         table_name = file['name'].replace('.xlsx', '').lower().replace(' ', '_')
-        df.to_sql(table_name, engine, if_exists='replace', index=False)
+        
+        df.to_sql(table_name, engine, schema='raw', if_exists='replace', index=False)
         
         print(f"Successfully loaded {file['name']} into table '{table_name}'")
 
+def run_sanity_check(engine):
+    query = """
+        SELECT 'orders' AS tbl, COUNT(*) FROM raw.orders
+        UNION ALL
+        SELECT 'order_logs', COUNT(*) FROM raw.order_logs
+        UNION ALL
+        SELECT 'delivery_men', COUNT(*) FROM raw.delivery_men
+        UNION ALL
+        SELECT 'customers', COUNT(*) FROM raw.customers;
+        """
+    with engine.connect() as conn:
+        df_check = pd.read_sql(query, conn)
+        print("--- Sanity Check Results ---")
+        print(df_check)
+        
+        if df_check['count'].min() == 0:
+            print("Alert: One or more tables are empty!")
+        else:
+            print("Data successfully landed")
+
 if __name__ == "__main__":
     process_files()
+    run_sanity_check(create_engine(DB_URL))
