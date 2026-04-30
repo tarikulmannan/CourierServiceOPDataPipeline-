@@ -21,6 +21,9 @@ services:
   etl:
     build: .
     container_name: courier_etl
+    dns:
+      - 127.0.0.11  # This is Docker's internal DNS (The Magic Link!)
+      - 8.8.8.8     # This is Google (The Backup for the Internet)
     depends_on:
       db:
         condition: service_healthy # Now this has a rule to follow!
@@ -33,3 +36,9 @@ services:
 
 volumes:
   pgdata:
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400  # Smaller packets often pass through easier
