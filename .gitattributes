@@ -1,0 +1,9 @@
+# Handle line endings automatically for most files
+* text=auto
+
+# Force shell scripts to always use LF (so they don't break in Docker)
+*.sh text eol=lf
+
+# Force YAML and config files to LF
+*.yaml text eol=lf
+*.cfg text eol=lf
